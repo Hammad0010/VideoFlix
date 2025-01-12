@@ -1,0 +1,38 @@
+name: Deploy Login Service
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/login/**'  # Only triggers when login files change
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        working-directory: ./backend/login
+        run: npm install
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to Lambda
+        working-directory: ./backend/login
+        run: |
+          zip -r function.zip .
+          aws lambda update-function-code \
+            --function-name ${{ secrets.LOGIN_LAMBDA_NAME }} \
+            --zip-file fileb://function.zip
