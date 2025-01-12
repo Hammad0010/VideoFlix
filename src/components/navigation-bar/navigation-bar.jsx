@@ -23,7 +23,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                                     to="/watchlist" 
                                     className={location.pathname === '/watchlist' ? 'active' : ''}
                                 >
-                                    History
+                                    Watchlist
                                 </Nav.Link>
                                 <Nav.Link 
                                     as={Link} 
