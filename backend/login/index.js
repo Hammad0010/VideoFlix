@@ -5,8 +5,7 @@ export const handler = async (event) => {
   try {
     console.log("Event:", JSON.stringify(event, null, 2));
 
-    // Parse request body
-    // const { email, password } = JSON.parse(event.body);
+    
     const requestBody = JSON.parse(event.body || '{}');
 const email = requestBody.email;
 const password = requestBody.password;
