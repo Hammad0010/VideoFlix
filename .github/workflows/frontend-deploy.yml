@@ -16,20 +16,20 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Check working directory
+      - name: Check directory structure
         run: |
           pwd
           ls -la
 
       - name: Install Dependencies
+        working-directory: ./frontend  # Add this line
         run: |
           npm install
-        continue-on-error: true
 
       - name: Build
+        working-directory: ./frontend  # Add this line
         run: |
           npm run build
-        continue-on-error: true
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -39,11 +39,13 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to S3
+        working-directory: ./frontend  # Add this line
         run: |
           if [ -d "build" ]; then
             aws s3 sync build/ s3://${{ secrets.S3_BUCKET }} --delete
           else
             echo "Build directory not found"
+            ls -la
             exit 1
           fi
 
