@@ -30,7 +30,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                                     to="/recommendations" 
                                     className={location.pathname === '/recommendations' ? 'active' : ''}
                                 >
-                                    Recommendations
+                                    Recommendation
                                 </Nav.Link>
                             </>
                         )}
