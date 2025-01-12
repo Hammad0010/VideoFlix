@@ -1,0 +1,22 @@
+@import '~bootstrap/scss/bootstrap';
+
+body {
+    background-color: #f8f9fa;
+}
+
+.main-content {
+    margin-top: 56px;
+    padding: 20px;
+}
+
+.error-message {
+    color: #dc3545;
+    margin: 10px 0;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+} 

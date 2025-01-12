@@ -1,0 +1,25 @@
+.watchlist-container {
+    padding: 20px;
+
+    .video-card {
+        transition: transform 0.2s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-metadata {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+    }
+} 

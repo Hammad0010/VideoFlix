@@ -1,6 +1,14 @@
-node_modules
-.cache
-.parcel-cache
-dist
-# Local Netlify folder
-.netlify
+# Build directories
+dist/
+.parcel-cache/
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
