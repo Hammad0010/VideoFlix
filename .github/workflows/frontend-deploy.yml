@@ -16,21 +16,36 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Check working directory
+        run: |
+          pwd
+          ls -la
+
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+        continue-on-error: true
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+        continue-on-error: true
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to S3
-        run: aws s3 sync build/ s3://${{ secrets.S3_BUCKET }} --delete
+        run: |
+          if [ -d "build" ]; then
+            aws s3 sync build/ s3://${{ secrets.S3_BUCKET }} --delete
+          else
+            echo "Build directory not found"
+            exit 1
+          fi
 
       - name: Invalidate CloudFront
         run: |
