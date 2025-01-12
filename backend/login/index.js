@@ -1,7 +1,8 @@
-import AWS from 'aws-sdk';
+const AWS = require('aws-sdk');
+const bcrypt = require('bcryptjs');
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   try {
     console.log("Event:", JSON.stringify(event, null, 2));
 
