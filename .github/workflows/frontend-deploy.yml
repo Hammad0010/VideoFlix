@@ -16,20 +16,13 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Check working directory
-        run: |
-          pwd
-          ls -la
-
       - name: Install Dependencies
-        run: |
-          npm install
-        continue-on-error: true
+        run: npm install
 
       - name: Build
-        run: |
-          npm run build
-        continue-on-error: true
+        run: npm run build
+        env:
+          CI: false
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -40,10 +33,11 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          if [ -d "build" ]; then
-            aws s3 sync build/ s3://${{ secrets.S3_BUCKET }} --delete
+          if [ -d "dist" ]; then
+            aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }} --delete
           else
-            echo "Build directory not found"
+            echo "Dist directory not found"
+            ls -la
             exit 1
           fi
 
